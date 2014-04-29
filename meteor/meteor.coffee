@@ -9,12 +9,11 @@ test = new Meteor.Collection "test"
 
 if Meteor.isServer
 	test.remove {}
-	
+
 	ctc.AddCsvToCollection "csv/myData.csv", test, (jsonArray) ->
 		console.log "fetch test: "
 		console.log test.find().fetch()
+
 	collection = ctc.CreateCollection 'csv/myData.csv', (jsonArray) ->
 		console.log "fetch : collection"
 		console.log collection.find().fetch()
-
-
