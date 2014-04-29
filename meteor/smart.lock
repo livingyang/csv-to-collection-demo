@@ -1,0 +1,15 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "csv-to-collection": {}
+    },
+    "packages": {
+      "csv-to-collection": {
+        "git": "https://github.com/livingyang/csv-to-collection.git",
+        "tag": "v0.1.7",
+        "commit": "74c26e6fe9ecea9a348da5116a18c1d3c4d14e32"
+      }
+    }
+  }
+}
