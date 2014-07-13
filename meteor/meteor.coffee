@@ -1,19 +1,29 @@
 if Meteor.isClient
-	Template.hello.greeting = ->
-		"Welcome to meteor."
+	Template.hello.csvFileCollection = ->
+		JSON.stringify publicCsvCollection.find().fetch()
+
+	Template.hello.csvStringCollection = ->
+		JSON.stringify csvStringCollection.find().fetch()
 
 	Template.hello.events "click input": ->
 		console.log "You pressed the button"
 
-test = new Meteor.Collection "test"
+publicCsvPath = "csv/myData.csv"
+# create a collection with name "myData.csv"
+publicCsvCollection = c2c.createCollection publicCsvPath
+
+csvString = "_id,a,b\n1,2,3\n3,4,5"
+csvStringCollection = new Meteor.Collection "custom"
 
 if Meteor.isServer
-	test.remove {}
+	# public csv file to collection
+	publicCsvCollection.remove {}
+	c2c.addPublicCsvToCollection publicCsvCollection, publicCsvPath
+	console.log "publicCsvCollection:"
+	console.log publicCsvCollection.find().fetch()
 
-	ctc.AddCsvToCollection "csv/myData.csv", test, (jsonArray) ->
-		console.log "fetch test: "
-		console.log test.find().fetch()
-
-	collection = ctc.CreateCollection 'csv/myData.csv', (jsonArray) ->
-		console.log "fetch : collection"
-		console.log collection.find().fetch()
+	# csv string to collection
+	csvStringCollection.remove {}
+	c2c.addCsvStringToCollection csvStringCollection, csvString
+	console.log "csvStringCollection:"
+	console.log csvStringCollection.find().fetch()
